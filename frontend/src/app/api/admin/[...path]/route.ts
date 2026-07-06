@@ -1,7 +1,11 @@
 const DEFAULT_ADMIN_SECRET = "vagnerzezo";
 
 function getApiBaseUrl() {
-  return process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3002";
+  return (
+    process.env.API_BASE_URL
+    || process.env.NEXT_PUBLIC_API_BASE_URL
+    || "http://localhost:3002"
+  );
 }
 
 function getAdminSecret() {

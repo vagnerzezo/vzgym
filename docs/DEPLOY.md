@@ -77,9 +77,11 @@ Ou rode uma vez no Railway via **Shell** (se disponível no plano).
 4. Variáveis:
 
 ```env
-NEXT_PUBLIC_API_BASE_URL=https://SUA-URL-RAILWAY
+API_BASE_URL=https://SUA-URL-RAILWAY
 ADMIN_SECRET=vagnerzezo
 ```
+
+> `API_BASE_URL` é lida no servidor (proxy Next.js). Também funciona `NEXT_PUBLIC_API_BASE_URL`, mas `API_BASE_URL` é preferível.
 
 5. Deploy → teste em `/` e `/config`
 
