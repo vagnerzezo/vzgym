@@ -1,10 +1,10 @@
-const CACHE = "vzgym-v1";
+const CACHE = "vzgym-v2";
 
 const PRECACHE = [
   "/",
   "/config",
   "/manifest.webmanifest",
-  "/vzgym.svg",
+  "/logo.svg",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
   "/apple-touch-icon.png",

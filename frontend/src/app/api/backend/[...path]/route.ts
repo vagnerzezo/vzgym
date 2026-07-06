@@ -19,6 +19,7 @@ async function proxyRequest(
         ? await request.text()
         : undefined,
       cache: "no-store",
+      signal: AbortSignal.timeout(15_000),
     });
 
     const body = await response.text();

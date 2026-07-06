@@ -5,5 +5,5 @@ export function getApiBaseUrl() {
   // Fallback em produção na Vercel quando a env ainda não foi configurada
   if (process.env.VERCEL) return "https://vzgym-production.up.railway.app";
 
-  return "http://localhost:3002";
+  return "http://127.0.0.1:3002";
 }

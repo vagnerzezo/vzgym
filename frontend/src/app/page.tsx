@@ -17,6 +17,7 @@ import type { Exercicio, Tecnica } from "@/lib/types";
 import { Dumbbell, RefreshCw, Search, Settings } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import Image from "next/image";
 
 export default function HomePage() {
   const { treinos, loading, refreshing, error, reload } = useTreinos();
@@ -66,8 +67,9 @@ export default function HomePage() {
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
           <div className="flex items-center gap-2">
-            <Dumbbell className="h-6 w-6 text-primary" />
-            <h1 className="text-xl font-bold tracking-tight">vzgym</h1>
+            <h1 className="text-xl font-bold tracking-tight">
+              <Image src="/logo.png" alt="vzgym" width={64} height={44} className="rounded-md" />
+            </h1>
             {refreshing && (
               <RefreshCw className="h-4 w-4 animate-spin text-muted-foreground" aria-label="Atualizando" />
             )}

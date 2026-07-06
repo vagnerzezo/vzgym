@@ -1,7 +1,13 @@
 const API_BASE = "/api/backend";
+const FETCH_TIMEOUT_MS = 20_000;
 
 async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(url, { ...init, cache: "no-store" });
+  const timeout = AbortSignal.timeout(FETCH_TIMEOUT_MS);
+  const signal = init?.signal
+    ? AbortSignal.any([init.signal, timeout])
+    : timeout;
+
+  const res = await fetch(url, { ...init, signal, cache: "no-store" });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
     throw new Error(body.erro || `Erro ${res.status}`);

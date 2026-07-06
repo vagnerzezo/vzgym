@@ -13,17 +13,16 @@ type State = {
   fromCache: boolean;
 };
 
+const INITIAL_STATE: State = {
+  treinos: [],
+  loading: true,
+  refreshing: false,
+  error: null,
+  fromCache: false,
+};
+
 export function useTreinos() {
-  const [state, setState] = useState<State>(() => {
-    const cached = readCache<Treino[]>(CACHE_KEYS.treinos);
-    return {
-      treinos: cached ?? [],
-      loading: !cached,
-      refreshing: false,
-      error: null,
-      fromCache: !!cached,
-    };
-  });
+  const [state, setState] = useState<State>(INITIAL_STATE);
 
   const load = useCallback(async (options?: { silent?: boolean }) => {
     const cached = readCache<Treino[]>(CACHE_KEYS.treinos);
@@ -49,7 +48,10 @@ export function useTreinos() {
         fromCache: false,
       });
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Erro ao carregar treinos";
+      let message = err instanceof Error ? err.message : "Erro ao carregar treinos";
+      if (err instanceof Error && (err.name === "TimeoutError" || err.name === "AbortError")) {
+        message = "A API demorou para responder. Rode npm run dev:all na raiz do projeto.";
+      }
       setState((prev) => ({
         ...prev,
         loading: false,
@@ -61,7 +63,17 @@ export function useTreinos() {
   }, []);
 
   useEffect(() => {
-    load();
+    const cached = readCache<Treino[]>(CACHE_KEYS.treinos);
+    if (cached?.length) {
+      setState((prev) => ({
+        ...prev,
+        treinos: cached,
+        loading: false,
+        fromCache: true,
+      }));
+    }
+
+    load({ silent: !!cached?.length });
   }, [load]);
 
   return { ...state, reload: () => load({ silent: true }) };
