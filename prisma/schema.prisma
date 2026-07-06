@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Treino {
+  id           String      @id @default(cuid())
+  nome         String
+  ordem        Int         @default(0)
+  exercicios   Exercicio[]
+  criadoEm     DateTime    @default(now())
+  atualizadoEm DateTime    @updatedAt
+
+  @@index([ordem])
+}
+
+model Tecnica {
+  id             String      @id @default(cuid())
+  nome           String      @unique
+  descricao      String      @db.Text
+  comoExecutar   String      @map("como_executar") @db.Text
+  beneficios     String      @db.Text
+  quandoUtilizar String?     @map("quando_utilizar") @db.Text
+  observacoes    String?     @db.Text
+  exercicios     Exercicio[]
+  criadoEm       DateTime    @default(now())
+  atualizadoEm   DateTime    @updatedAt
+}
+
+model Exercicio {
+  id           String   @id @default(cuid())
+  treinoId     String   @map("treino_id")
+  treino       Treino   @relation(fields: [treinoId], references: [id], onDelete: Cascade)
+  nome         String
+  series       String
+  tecnicaId    String?  @map("tecnica_id")
+  tecnica      Tecnica? @relation(fields: [tecnicaId], references: [id], onDelete: SetNull)
+  video        String?
+  musculo      String
+  passoAPasso  String?  @map("passo_a_passo") @db.Text
+  dicas        String?  @db.Text
+  observacoes  String?  @db.Text
+  ordem        Int      @default(0)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  @@index([treinoId])
+  @@index([tecnicaId])
+  @@index([ordem])
+}

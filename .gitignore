@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Environment
+.env
+.env.local
+frontend/.env.local
+
+# Prisma local cache
+.prisma-home/
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Build / logs
+dist/
+*.log
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Vercel
+frontend/.vercel/
+
+# TypeScript
+frontend/*.tsbuildinfo
