@@ -1,0 +1,10 @@
+[build]
+buildCommand = "npm ci --ignore-scripts && npx prisma generate"
+
+[deploy]
+preDeployCommand = "npx prisma migrate deploy"
+startCommand = "node src/serve.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
