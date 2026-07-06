@@ -50,7 +50,7 @@ export default function RootLayout({
       <body>
         <PWARegister />
         {children}
-        <Toaster richColors position="bottom-center" />
+        <Toaster richColors position="bottom-center" mobileOffset={{ bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))" }} />
       </body>
     </html>
   );
