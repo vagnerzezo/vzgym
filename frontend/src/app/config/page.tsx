@@ -6,6 +6,7 @@ import { TreinosPanel } from "@/components/config/TreinosPanel";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getTreinos, getTecnicas } from "@/lib/api";
+import { CACHE_KEYS, invalidateWorkoutCache, readCache, writeCache } from "@/lib/cache";
 import type { Tecnica, Treino } from "@/lib/types";
 import { ArrowLeft, Dumbbell } from "lucide-react";
 import Link from "next/link";
@@ -13,18 +14,22 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function ConfigPage() {
-  const [treinos, setTreinos] = useState<Treino[]>([]);
-  const [tecnicas, setTecnicas] = useState<Tecnica[]>([]);
+  const [treinos, setTreinos] = useState<Treino[]>(() => readCache(CACHE_KEYS.treinos) ?? []);
+  const [tecnicas, setTecnicas] = useState<Tecnica[]>(() => readCache(CACHE_KEYS.tecnicas) ?? []);
 
   const refresh = useCallback(async () => {
     try {
       const [t, tc] = await Promise.all([getTreinos(), getTecnicas()]);
+      writeCache(CACHE_KEYS.treinos, t);
+      writeCache(CACHE_KEYS.tecnicas, tc);
       setTreinos(t);
       setTecnicas(tc);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Erro ao carregar dados");
+      if (treinos.length === 0 && tecnicas.length === 0) {
+        toast.error(err instanceof Error ? err.message : "Erro ao carregar dados");
+      }
     }
-  }, []);
+  }, [treinos.length, tecnicas.length]);
 
   useEffect(() => {
     refresh();
@@ -53,13 +58,30 @@ export default function ConfigPage() {
           </TabsList>
 
           <TabsContent value="exercicios">
-            <ExerciciosPanel treinos={treinos} tecnicas={tecnicas} onRefresh={refresh} />
+            <ExerciciosPanel
+              treinos={treinos}
+              tecnicas={tecnicas}
+              onRefresh={() => {
+                invalidateWorkoutCache();
+                return refresh();
+              }}
+            />
           </TabsContent>
           <TabsContent value="tecnicas">
-            <TecnicasPanel onRefresh={refresh} />
+            <TecnicasPanel
+              onRefresh={() => {
+                invalidateWorkoutCache();
+                return refresh();
+              }}
+            />
           </TabsContent>
           <TabsContent value="treinos">
-            <TreinosPanel onRefresh={refresh} />
+            <TreinosPanel
+              onRefresh={() => {
+                invalidateWorkoutCache();
+                return refresh();
+              }}
+            />
           </TabsContent>
         </Tabs>
       </main>

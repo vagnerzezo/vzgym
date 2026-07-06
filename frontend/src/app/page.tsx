@@ -12,42 +12,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { getTreinos } from "@/lib/api";
-import type { Exercicio, Tecnica, Treino } from "@/lib/types";
-import { Dumbbell, Search, Settings } from "lucide-react";
+import { useTreinos } from "@/hooks/useTreinos";
+import type { Exercicio, Tecnica } from "@/lib/types";
+import { Dumbbell, RefreshCw, Search, Settings } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
+import { useMemo, useState } from "react";
 
 export default function HomePage() {
-  const [treinos, setTreinos] = useState<Treino[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { treinos, loading, refreshing, error, reload } = useTreinos();
   const [search, setSearch] = useState("");
   const [filterTreino, setFilterTreino] = useState("all");
   const [selectedTecnica, setSelectedTecnica] = useState<Tecnica | null>(null);
   const [tecnicaModalOpen, setTecnicaModalOpen] = useState(false);
   const [selectedExercicio, setSelectedExercicio] = useState<Exercicio | null>(null);
   const [exemploModalOpen, setExemploModalOpen] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const load = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await getTreinos();
-      setTreinos(data);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Erro ao carregar treinos";
-      setError(message);
-      toast.error(message);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    load();
-  }, [load]);
 
   const filteredTreinos = useMemo(() => {
     const term = search.trim().toLowerCase();
@@ -79,6 +57,10 @@ export default function HomePage() {
     }
   }
 
+  async function handleRetry() {
+    await reload();
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -86,6 +68,9 @@ export default function HomePage() {
           <div className="flex items-center gap-2">
             <Dumbbell className="h-6 w-6 text-primary" />
             <h1 className="text-xl font-bold tracking-tight">vzgym</h1>
+            {refreshing && (
+              <RefreshCw className="h-4 w-4 animate-spin text-muted-foreground" aria-label="Atualizando" />
+            )}
           </div>
           <Button variant="outline" size="sm" asChild>
             <Link href="/config">
@@ -126,7 +111,7 @@ export default function HomePage() {
           <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-6 text-center">
             <p className="mb-2 font-medium text-destructive">Erro ao conectar na API</p>
             <p className="mb-4 text-sm text-muted-foreground">{error}</p>
-            <Button variant="outline" onClick={load}>Tentar novamente</Button>
+            <Button variant="outline" onClick={handleRetry}>Tentar novamente</Button>
           </div>
         ) : (
           <TreinoTable
