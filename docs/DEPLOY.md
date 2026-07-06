@@ -73,7 +73,10 @@ Ou rode uma vez no Railway via **Shell** (se disponível no plano).
 
 1. [vercel.com](https://vercel.com) → **Add New** → **Project**
 2. Importe `vagnerzezo/vzgym`
-3. **Root Directory:** `frontend`
+3. **Root Directory:** clique **Edit** → selecione **`frontend`** → **Continue**
+
+> **Obrigatório.** Sem isso a Vercel builda a raiz do repo e tenta rodar `prisma generate` (erro).
+
 4. Variáveis:
 
 ```env
