@@ -1,10 +1,4 @@
-function getApiBaseUrl() {
-  return (
-    process.env.API_BASE_URL
-    || process.env.NEXT_PUBLIC_API_BASE_URL
-    || "http://localhost:3002"
-  );
-}
+import { getApiBaseUrl } from "@/lib/server-api";
 
 async function proxyRequest(
   request: Request,
@@ -12,27 +6,40 @@ async function proxyRequest(
 ) {
   const { path } = await context.params;
   const incomingUrl = new URL(request.url);
-  const targetUrl = `${getApiBaseUrl()}/${path.join("/")}${incomingUrl.search}`;
+  const apiBase = getApiBaseUrl();
+  const targetUrl = `${apiBase}/${path.join("/")}${incomingUrl.search}`;
 
-  const response = await fetch(targetUrl, {
-    method: request.method,
-    headers: request.method !== "GET" && request.method !== "HEAD"
-      ? { "Content-Type": request.headers.get("content-type") || "application/json" }
-      : undefined,
-    body: request.method !== "GET" && request.method !== "HEAD"
-      ? await request.text()
-      : undefined,
-    cache: "no-store",
-  });
+  try {
+    const response = await fetch(targetUrl, {
+      method: request.method,
+      headers: request.method !== "GET" && request.method !== "HEAD"
+        ? { "Content-Type": request.headers.get("content-type") || "application/json" }
+        : undefined,
+      body: request.method !== "GET" && request.method !== "HEAD"
+        ? await request.text()
+        : undefined,
+      cache: "no-store",
+    });
 
-  const body = await response.text();
+    const body = await response.text();
 
-  return new Response(body, {
-    status: response.status,
-    headers: {
-      "Content-Type": response.headers.get("Content-Type") || "application/json",
-    },
-  });
+    return new Response(body, {
+      status: response.status,
+      headers: {
+        "Content-Type": response.headers.get("Content-Type") || "application/json",
+      },
+    });
+  } catch (err) {
+    console.error("[API proxy]", targetUrl, err);
+    return Response.json(
+      {
+        erro: "Não foi possível conectar na API",
+        api: apiBase,
+        detalhe: err instanceof Error ? err.message : "Erro desconhecido",
+      },
+      { status: 502 },
+    );
+  }
 }
 
 export async function GET(

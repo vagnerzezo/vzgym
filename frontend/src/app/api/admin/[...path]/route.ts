@@ -1,12 +1,6 @@
-const DEFAULT_ADMIN_SECRET = "vagnerzezo";
+import { getApiBaseUrl } from "@/lib/server-api";
 
-function getApiBaseUrl() {
-  return (
-    process.env.API_BASE_URL
-    || process.env.NEXT_PUBLIC_API_BASE_URL
-    || "http://localhost:3002"
-  );
-}
+const DEFAULT_ADMIN_SECRET = "vagnerzezo";
 
 function getAdminSecret() {
   return process.env.ADMIN_SECRET || DEFAULT_ADMIN_SECRET;
@@ -36,15 +30,23 @@ async function proxyAdminRequest(
     init.body = await request.text();
   }
 
-  const response = await fetch(targetUrl, init);
-  const body = await response.text();
+  try {
+    const response = await fetch(targetUrl, init);
+    const body = await response.text();
 
-  return new Response(body, {
-    status: response.status,
-    headers: {
-      "Content-Type": response.headers.get("Content-Type") || "application/json",
-    },
-  });
+    return new Response(body, {
+      status: response.status,
+      headers: {
+        "Content-Type": response.headers.get("Content-Type") || "application/json",
+      },
+    });
+  } catch (err) {
+    console.error("[Admin proxy]", targetUrl, err);
+    return Response.json(
+      { erro: "Não foi possível conectar na API", detalhe: err instanceof Error ? err.message : "Erro" },
+      { status: 502 },
+    );
+  }
 }
 
 export async function GET(

@@ -28,14 +28,18 @@ export default function HomePage() {
   const [tecnicaModalOpen, setTecnicaModalOpen] = useState(false);
   const [selectedExercicio, setSelectedExercicio] = useState<Exercicio | null>(null);
   const [exemploModalOpen, setExemploModalOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const data = await getTreinos();
       setTreinos(data);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Erro ao carregar treinos");
+      const message = err instanceof Error ? err.message : "Erro ao carregar treinos";
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -118,6 +122,12 @@ export default function HomePage() {
 
         {loading ? (
           <p className="text-center text-muted-foreground">Carregando ficha de treino...</p>
+        ) : error ? (
+          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-6 text-center">
+            <p className="mb-2 font-medium text-destructive">Erro ao conectar na API</p>
+            <p className="mb-4 text-sm text-muted-foreground">{error}</p>
+            <Button variant="outline" onClick={load}>Tentar novamente</Button>
+          </div>
         ) : (
           <TreinoTable
             treinos={filteredTreinos}
