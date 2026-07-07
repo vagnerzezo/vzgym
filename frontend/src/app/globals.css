@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --primary: #059669;
-  --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  --accent: #ecfdf5;
-  --accent-foreground: #065f46;
+  --background: #09215f;
+  --foreground: #f15358;
+  --card: #0b2869;
+  --card-foreground: #f15358;
+  --popover: #0b2869;
+  --popover-foreground: #f15358;
+  --primary: #f15358;
+  --primary-foreground: #09215f;
+  --secondary: #0d2d6f;
+  --secondary-foreground: #f15358;
+  --muted: #0a2460;
+  --muted-foreground: #f8a0a3;
+  --accent: #0d2d6f;
+  --accent-foreground: #f15358;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #059669;
+  --border: #1a3d7a;
+  --input: #1a3d7a;
+  --ring: #f15358;
+  --shadow: #09215f;
   --radius: 0.5rem;
 }
 
@@ -49,28 +50,32 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --shadow-sm: 0 1px 3px 0 color-mix(in srgb, var(--shadow) 60%, black);
+  --shadow-md: 0 4px 6px -1px color-mix(in srgb, var(--shadow) 60%, black);
+  --shadow-xl: 0 20px 25px -5px color-mix(in srgb, var(--shadow) 60%, black);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #09090b;
-    --foreground: #fafafa;
-    --card: #18181b;
-    --card-foreground: #fafafa;
-    --popover: #18181b;
-    --popover-foreground: #fafafa;
-    --primary: #34d399;
-    --primary-foreground: #064e3b;
-    --secondary: #27272a;
-    --secondary-foreground: #fafafa;
-    --muted: #27272a;
-    --muted-foreground: #a1a1aa;
-    --accent: #064e3b;
-    --accent-foreground: #ecfdf5;
+    --background: #09215f;
+    --foreground: #f15358;
+    --card: #0b2869;
+    --card-foreground: #f15358;
+    --popover: #0b2869;
+    --popover-foreground: #f15358;
+    --primary: #f15358;
+    --primary-foreground: #09215f;
+    --secondary: #0d2d6f;
+    --secondary-foreground: #f15358;
+    --muted: #0a2460;
+    --muted-foreground: #f8a0a3;
+    --accent: #0d2d6f;
+    --accent-foreground: #f15358;
     --destructive: #dc2626;
-    --border: #27272a;
-    --input: #27272a;
-    --ring: #34d399;
+    --border: #1a3d7a;
+    --input: #1a3d7a;
+    --ring: #f15358;
+    --shadow: #09215f;
   }
 }
 

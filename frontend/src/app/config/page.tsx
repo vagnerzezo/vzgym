@@ -39,7 +39,7 @@ export default function ConfigPage() {
     <div className="min-h-screen bg-background">
       <header className="sticky-header sticky top-0 z-40 border-b bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center gap-4 px-4 py-4">
-          <Button variant="ghost" size="icon" asChild>
+          <Button className="cursor-pointer" variant="ghost" size="icon" asChild>
             <Link href="/"><ArrowLeft className="h-5 w-5" /></Link>
           </Button>
           <div className="flex items-center gap-2">

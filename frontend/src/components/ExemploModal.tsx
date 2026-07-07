@@ -29,12 +29,12 @@ export function ExemploModal({ exercicio, open, onOpenChange }: Props) {
         </DialogHeader>
         <div className="space-y-4 text-sm">
           {exercicio.video && (
-            <div className="overflow-hidden rounded-lg border bg-muted/30">
+            <div className="overflow-hidden rounded-lg border bg-muted/30 w-[400px] h-[400px]">
               {isVideoUrl(exercicio.video) ? (
                 <video
                   src={exercicio.video}
                   controls
-                  className="max-h-56 w-full object-cover"
+                  className="w-full h-full object-cover"
                   playsInline
                 />
               ) : (

@@ -128,7 +128,7 @@ export function ExerciciosPanel({ treinos, tecnicas, onRefresh }: Props) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Exercícios</h2>
-        <Button onClick={openNew} size="sm">
+        <Button className="cursor-pointer" onClick={openNew} size="sm">
           <Plus className="h-4 w-4" />
           Novo Exercício
         </Button>
@@ -157,10 +157,10 @@ export function ExerciciosPanel({ treinos, tecnicas, onRefresh }: Props) {
                   <td className="px-3 py-2">{ex.tecnica?.nome ?? "—"}</td>
                   <td className="px-3 py-2">
                     <div className="flex justify-end gap-1">
-                      <Button variant="ghost" size="icon" onClick={() => openEdit(ex)}>
+                      <Button className="cursor-pointer" variant="ghost" size="icon" onClick={() => openEdit(ex)}>
                         <Pencil className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(ex.id)}>
+                      <Button className="cursor-pointer" variant="ghost" size="icon" onClick={() => handleDelete(ex.id)}>
                         <Trash2 className="h-4 w-4 text-destructive" />
                       </Button>
                     </div>
@@ -231,7 +231,7 @@ export function ExerciciosPanel({ treinos, tecnicas, onRefresh }: Props) {
               <Label>Observações (opcional)</Label>
               <Textarea value={form.observacoes} onChange={(e) => setForm({ ...form, observacoes: e.target.value })} rows={2} />
             </div>
-            <Button onClick={handleSave}>Salvar</Button>
+            <Button className="cursor-pointer" onClick={handleSave}>Salvar</Button>
           </div>
         </DialogContent>
       </Dialog>
