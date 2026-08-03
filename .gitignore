@@ -9,6 +9,7 @@ frontend/.env.local
 
 # Prisma local cache
 .prisma-home/
+frontend/src/generated/
 
 # Next.js
 frontend/.next/
