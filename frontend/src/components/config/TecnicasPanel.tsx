@@ -1,5 +1,6 @@
 "use client";
 
+import { TecnicasPanelSkeleton } from "@/components/LoadingSkeletons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -119,7 +120,7 @@ export function TecnicasPanel({ onRefresh }: Props) {
       </div>
 
       {loading ? (
-        <p className="text-sm text-muted-foreground">Carregando...</p>
+        <TecnicasPanelSkeleton />
       ) : (
         <div className="grid gap-3 sm:grid-cols-2">
           {tecnicas.map((t) => (

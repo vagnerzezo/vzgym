@@ -41,3 +41,21 @@ export async function adminFetch<T>(path: string, init?: RequestInit): Promise<T
   }
   return res.json();
 }
+
+export async function getWeekCheckins(date?: string) {
+  const qs = date ? `?date=${encodeURIComponent(date)}` : "";
+  return fetchJson<import("./types").TrainingCheckin[]>(`${API_BASE}/checkins/week${qs}`);
+}
+
+export async function getCheckInStats(date?: string) {
+  const qs = date ? `?date=${encodeURIComponent(date)}` : "";
+  return fetchJson<import("./types").CheckInStats>(`${API_BASE}/checkins/stats${qs}`);
+}
+
+export async function createCheckin(data: { checkinDate: string; treinoId?: string }) {
+  return fetchJson<import("./types").TrainingCheckin>(`${API_BASE}/checkins`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+}

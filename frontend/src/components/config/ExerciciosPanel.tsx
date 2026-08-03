@@ -1,5 +1,6 @@
 "use client";
 
+import { ExerciciosTableSkeleton } from "@/components/LoadingSkeletons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -135,7 +136,7 @@ export function ExerciciosPanel({ treinos, tecnicas, onRefresh }: Props) {
       </div>
 
       {loading ? (
-        <p className="text-sm text-muted-foreground">Carregando...</p>
+        <ExerciciosTableSkeleton />
       ) : (
         <div className="overflow-x-auto rounded-lg border">
           <table className="w-full min-w-[640px] text-sm">

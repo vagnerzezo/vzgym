@@ -1,5 +1,6 @@
 "use client";
 
+import { TreinosPanelSkeleton } from "@/components/LoadingSkeletons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -104,7 +105,7 @@ export function TreinosPanel({ onRefresh }: Props) {
       </div>
 
       {loading ? (
-        <p className="text-sm text-muted-foreground">Carregando...</p>
+        <TreinosPanelSkeleton />
       ) : (
         <div className="space-y-2">
           {treinos.map((t) => (

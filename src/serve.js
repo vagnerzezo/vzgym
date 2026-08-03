@@ -5,6 +5,7 @@ const { requireAdmin } = require("./middleware/adminAuth");
 const treinoService = require("./services/treinoService");
 const exercicioService = require("./services/exercicioService");
 const tecnicaService = require("./services/tecnicaService");
+const checkInService = require("./services/checkInService");
 
 const app = express();
 
@@ -190,6 +191,56 @@ app.delete("/admin/exercicios/:id", requireAdmin, async (req, res) => {
     return res.status(200).json(exercicio);
   } catch (err) {
     return handleError(res, err, "Erro ao excluir exercício");
+  }
+});
+
+// --- Check-ins (public: app single-tenant) ---
+
+app.get("/checkins", async (req, res) => {
+  try {
+    const checkins = await checkInService.listCheckins({
+      treinoId: req.query.treino_id || req.query.workout_id,
+      from: req.query.from,
+      to: req.query.to,
+    });
+    return res.status(200).json(checkins);
+  } catch (err) {
+    return handleError(res, err, "Erro ao listar check-ins");
+  }
+});
+
+app.get("/checkins/week", async (req, res) => {
+  try {
+    const checkins = await checkInService.listWeekCheckins({
+      date: req.query.date,
+    });
+    return res.status(200).json(checkins);
+  } catch (err) {
+    return handleError(res, err, "Erro ao listar check-ins da semana");
+  }
+});
+
+app.get("/checkins/stats", async (req, res) => {
+  try {
+    const stats = await checkInService.getStats({
+      date: req.query.date,
+    });
+    return res.status(200).json(stats);
+  } catch (err) {
+    return handleError(res, err, "Erro ao calcular estatísticas");
+  }
+});
+
+app.post("/checkins", async (req, res) => {
+  try {
+    const body = req.body ?? {};
+    const checkin = await checkInService.createCheckin({
+      treinoId: body.treinoId || body.workout_id || body.workoutId,
+      checkinDate: body.checkinDate || body.checkin_date,
+    });
+    return res.status(201).json(checkin);
+  } catch (err) {
+    return handleError(res, err, "Erro ao registrar check-in");
   }
 });
 

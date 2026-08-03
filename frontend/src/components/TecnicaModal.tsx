@@ -24,46 +24,48 @@ export function TecnicaModal({ tecnica, open, onOpenChange }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-xl text-primary">{tecnica.nome}</DialogTitle>
+        <DialogHeader className="pr-8">
+          <DialogTitle className="break-words text-lg text-primary sm:text-xl">
+            {tecnica.nome}
+          </DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 text-sm">
-          <section>
+        <div className="min-w-0 space-y-4 text-sm">
+          <section className="min-w-0">
             <h3 className="mb-1 font-semibold text-foreground">Descrição</h3>
-            <p className="text-muted-foreground">{tecnica.descricao}</p>
+            <p className="break-words text-muted-foreground">{tecnica.descricao}</p>
           </section>
           {tecnica.quandoUtilizar && (
-            <section>
+            <section className="min-w-0">
               <h3 className="mb-1 font-semibold text-foreground">Quando utilizar</h3>
-              <p className="text-muted-foreground">{tecnica.quandoUtilizar}</p>
+              <p className="break-words text-muted-foreground">{tecnica.quandoUtilizar}</p>
             </section>
           )}
-          <section>
+          <section className="min-w-0">
             <h3 className="mb-1 font-semibold text-foreground">Como fazer</h3>
             <ul className="space-y-1 text-muted-foreground">
               {passos.map((item) => (
                 <li key={item} className="flex gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{item}</span>
+                  <span className="shrink-0 text-primary">•</span>
+                  <span className="min-w-0 break-words">{item}</span>
                 </li>
               ))}
             </ul>
           </section>
-          <section>
+          <section className="min-w-0">
             <h3 className="mb-1 font-semibold text-foreground">Benefícios</h3>
             <ul className="space-y-1 text-muted-foreground">
               {beneficios.map((item) => (
                 <li key={item} className="flex gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{item}</span>
+                  <span className="shrink-0 text-primary">•</span>
+                  <span className="min-w-0 break-words">{item}</span>
                 </li>
               ))}
             </ul>
           </section>
           {tecnica.observacoes && (
-            <section>
+            <section className="min-w-0">
               <h3 className="mb-1 font-semibold text-foreground">Observações</h3>
-              <p className="text-muted-foreground">{tecnica.observacoes}</p>
+              <p className="break-all text-muted-foreground">{tecnica.observacoes}</p>
             </section>
           )}
         </div>

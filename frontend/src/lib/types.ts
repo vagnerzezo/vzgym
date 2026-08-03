@@ -56,3 +56,26 @@ export type TreinoFormData = {
   nome: string;
   ordem: number;
 };
+
+export type TrainingCheckin = {
+  id: string;
+  userId: string;
+  treinoId: string | null;
+  checkinDate: string;
+  weekday: number;
+  completed: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CheckInStats = {
+  monthTotal: number;
+  weekTotal: number;
+  currentStreak: number;
+  monthPercent: number;
+  bestStreak: number;
+  weekStart: string;
+  weekEnd: string;
+  monthStart: string;
+  monthEnd: string;
+};

@@ -7,14 +7,34 @@ datasource db {
 }
 
 model Treino {
-  id           String      @id @default(cuid())
+  id           String            @id @default(cuid())
   nome         String
-  ordem        Int         @default(0)
+  ordem        Int               @default(0)
   exercicios   Exercicio[]
-  criadoEm     DateTime    @default(now())
-  atualizadoEm DateTime    @updatedAt
+  checkins     TrainingCheckin[]
+  criadoEm     DateTime          @default(now())
+  atualizadoEm DateTime          @updatedAt
 
   @@index([ordem])
+}
+
+/// Check-in diário (estilo TotalPass). userId prepara multi-usuário; app atual usa "default".
+model TrainingCheckin {
+  id          String   @id @default(cuid())
+  userId      String   @default("default") @map("user_id")
+  treinoId    String?  @map("workout_id")
+  treino      Treino?  @relation(fields: [treinoId], references: [id], onDelete: SetNull)
+  checkinDate DateTime @map("checkin_date") @db.Date
+  weekday     Int
+  completed   Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, checkinDate])
+  @@index([userId])
+  @@index([treinoId])
+  @@index([checkinDate])
+  @@map("training_checkins")
 }
 
 model Tecnica {

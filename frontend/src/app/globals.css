@@ -1,27 +1,55 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
 :root {
-  --background: #09215f;
-  --foreground: #f15358;
-  --card: #0b2869;
-  --card-foreground: #f15358;
-  --popover: #0b2869;
-  --popover-foreground: #f15358;
-  --primary: #f15358;
-  --primary-foreground: #09215f;
-  --secondary: #0d2d6f;
-  --secondary-foreground: #f15358;
-  --muted: #0a2460;
-  --muted-foreground: #f8a0a3;
-  --accent: #0d2d6f;
-  --accent-foreground: #f15358;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #1a3d7a;
-  --input: #1a3d7a;
-  --ring: #f15358;
-  --shadow: #09215f;
-  --radius: 0.5rem;
+  color-scheme: dark;
+  --radius: 1rem;
+
+  /* Brand palette */
+  --ocean: #1f4b5d;
+  --aqua: #68cfeb;
+  --soft-white: #fafafa;
+  --charcoal: #1f1e19;
+
+  --background: var(--charcoal);
+  --foreground: var(--soft-white);
+  --card: var(--ocean);
+  --card-foreground: var(--soft-white);
+  --popover: color-mix(in srgb, var(--ocean) 88%, var(--charcoal));
+  --popover-foreground: var(--soft-white);
+  --primary: var(--aqua);
+  --primary-foreground: var(--charcoal);
+  --secondary: color-mix(in srgb, var(--ocean) 72%, var(--charcoal));
+  --secondary-foreground: var(--soft-white);
+  --muted: color-mix(in srgb, var(--ocean) 58%, var(--charcoal));
+  --muted-foreground: color-mix(in srgb, var(--soft-white) 62%, var(--ocean));
+  --accent: var(--ocean);
+  --accent-foreground: var(--soft-white);
+  --destructive: #e35d5d;
+  --destructive-foreground: var(--soft-white);
+  --border: color-mix(in srgb, var(--aqua) 22%, var(--ocean));
+  --input: color-mix(in srgb, var(--aqua) 22%, var(--ocean));
+  --ring: var(--aqua);
+  --chart-1: var(--aqua);
+  --chart-2: color-mix(in srgb, var(--aqua) 55%, var(--ocean));
+  --chart-3: color-mix(in srgb, var(--soft-white) 70%, var(--ocean));
+  --chart-4: var(--ocean);
+  --chart-5: color-mix(in srgb, var(--aqua) 35%, var(--charcoal));
+  --sidebar: color-mix(in srgb, var(--charcoal) 70%, var(--ocean));
+  --sidebar-foreground: var(--soft-white);
+  --sidebar-primary: var(--aqua);
+  --sidebar-primary-foreground: var(--charcoal);
+  --sidebar-accent: var(--ocean);
+  --sidebar-accent-foreground: var(--soft-white);
+  --sidebar-border: color-mix(in srgb, var(--aqua) 22%, var(--ocean));
+  --sidebar-ring: var(--aqua);
+  --shadow: color-mix(in srgb, var(--charcoal) 85%, black);
+  --gradient-surface: linear-gradient(145deg,
+    color-mix(in srgb, var(--ocean) 82%, var(--soft-white)) 0%,
+    var(--ocean) 100%);
+  --gradient-primary: linear-gradient(135deg,
+    var(--aqua) 0%,
+    color-mix(in srgb, var(--aqua) 55%, var(--ocean)) 100%);
 }
 
 @theme inline {
@@ -44,39 +72,37 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 6px);
+  --radius-lg: calc(var(--radius) - 4px);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) + 4px);
   --shadow-sm: 0 1px 3px 0 color-mix(in srgb, var(--shadow) 60%, black);
   --shadow-md: 0 4px 6px -1px color-mix(in srgb, var(--shadow) 60%, black);
   --shadow-xl: 0 20px 25px -5px color-mix(in srgb, var(--shadow) 60%, black);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #09215f;
-    --foreground: #f15358;
-    --card: #0b2869;
-    --card-foreground: #f15358;
-    --popover: #0b2869;
-    --popover-foreground: #f15358;
-    --primary: #f15358;
-    --primary-foreground: #09215f;
-    --secondary: #0d2d6f;
-    --secondary-foreground: #f15358;
-    --muted: #0a2460;
-    --muted-foreground: #f8a0a3;
-    --accent: #0d2d6f;
-    --accent-foreground: #f15358;
-    --destructive: #dc2626;
-    --border: #1a3d7a;
-    --input: #1a3d7a;
-    --ring: #f15358;
-    --shadow: #09215f;
-  }
+@utility surface-gradient {
+  background-image: var(--gradient-surface);
+}
+
+@utility primary-gradient {
+  background-image: var(--gradient-primary);
 }
 
 body {
@@ -95,4 +121,18 @@ body {
 
 * {
   border-color: var(--border);
+}
+
+@keyframes checkin-pop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.5;
+  }
+  55% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
