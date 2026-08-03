@@ -13,9 +13,9 @@ Aplicação web para gerenciar fichas de treino de academia.
 
 ```
 vzgym/
-├── prisma/          # Schema e migrations
-├── src/             # API Express (legado / opcional local)
-└── frontend/        # App Next.js + Route Handlers
+├── frontend/        # App Next.js + API + Prisma
+│   └── prisma/      # Schema e migrations
+└── src/             # API Express (legado / opcional local)
 ```
 
 ## Configuração

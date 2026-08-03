@@ -10,9 +10,9 @@
     "dev:frontend": "npm run dev --prefix frontend",
     "dev:all": "concurrently -n api,web -c blue,green \"nodemon src/serve.js\" \"npm run dev --prefix frontend\"",
     "build": "npm run prisma:generate",
-    "prisma:generate": "HOME=\"$(pwd)/.prisma-home\" prisma generate",
-    "deploy:migrate": "prisma migrate deploy",
-    "db:seed": "node prisma/seed.js",
+    "prisma:generate": "HOME=\"$(pwd)/.prisma-home\" prisma generate --config ./prisma.config.ts",
+    "deploy:migrate": "prisma migrate deploy --config ./prisma.config.ts",
+    "db:seed": "node frontend/prisma/seed.js",
     "postinstall": "npm run prisma:generate"
   },
   "keywords": [],

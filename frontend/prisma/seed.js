@@ -1,5 +1,5 @@
-require("dotenv").config();
-const prisma = require("../src/prisma");
+require("dotenv").config({ path: require("path").resolve(__dirname, "../../.env") });
+const prisma = require("../../src/prisma");
 
 const TECNICAS = [
   {
