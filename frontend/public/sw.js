@@ -1,13 +1,13 @@
-const CACHE = "vzgym-v2";
+const CACHE = "vzgym-v3";
 
 const PRECACHE = [
   "/",
   "/config",
   "/manifest.webmanifest",
-  "/logo.svg",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
   "/apple-touch-icon.png",
+  "/apple-touch-icon-180x180.png",
 ];
 
 self.addEventListener("install", (event) => {

@@ -25,6 +25,7 @@ dist/
 .vscode/
 
 # Vercel
+.vercel/
 frontend/.vercel/
 
 # TypeScript
