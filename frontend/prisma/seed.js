@@ -58,75 +58,104 @@ const TECNICAS = [
     beneficios: "• Corrige desequilíbrios musculares\n• Maior foco no músculo trabalhado\n• Melhora controle motor",
     quandoUtilizar: "Use quando houver assimetria ou para exercícios como serrote e remada unilateral.",
   },
+  {
+    nome: "Rest-pause",
+    descricao: "Técnica onde, ao atingir a falha, você descansa poucos segundos e continua a série com a mesma carga.",
+    comoExecutar: "• Execute a série até a falha\n• Descanse 10 a 15 segundos\n• Faça mais repetições até a falha\n• Repita a pausa mais 1 ou 2 vezes",
+    beneficios: "• Mais repetições com carga alta\n• Aumento de volume sem alongar o treino\n• Força e hipertrofia",
+    quandoUtilizar: "Use na última série de exercícios compostos, como supino, puxada, hack e leg press.",
+  },
+  {
+    nome: "Pico de contração",
+    descricao: "Técnica onde você segura a posição de máxima contração do músculo por alguns segundos em cada repetição.",
+    comoExecutar: "• Execute a fase concêntrica normalmente\n• Segure 1 segundo no ponto de máxima contração\n• Desça de forma controlada (2-3s)",
+    beneficios: "• Maior conexão mente-músculo\n• Mais tempo sob tensão\n• Estímulo no ponto de encurtamento",
+    quandoUtilizar: "Ideal em exercícios isolados como voador e pulldown.",
+  },
+  {
+    nome: "Pausa embaixo",
+    descricao: "Técnica onde você faz uma pausa na posição de alongamento, eliminando o reflexo elástico do movimento.",
+    comoExecutar: "• Desça de forma controlada\n• Segure 2 segundos na posição de máximo alongamento\n• Suba sem dar impulso",
+    beneficios: "• Maior amplitude efetiva\n• Mais tempo sob tensão\n• Evita usar o 'rebote' do tendão",
+    quandoUtilizar: "Excelente para panturrilha, onde o rebote costuma roubar o estímulo.",
+  },
+  {
+    nome: "Descida lenta",
+    descricao: "Técnica que enfatiza a fase excêntrica (descida), executada de forma lenta e controlada.",
+    comoExecutar: "• Suba de forma controlada\n• Desça em 3 a 4 segundos\n• Mantenha a tensão durante toda a descida",
+    beneficios: "• Maior dano muscular e hipertrofia\n• Mais controle e segurança\n• Melhora a flexibilidade sob carga",
+    quandoUtilizar: "Use em exercícios de posterior como stiff e em movimentos em que o controle é essencial.",
+  },
 ];
 
+const ABDOMINAIS = [
+  { nome: "Abdominal polia", series: "3x8-12", tecnica: null, musculo: "Abdômen" },
+  { nome: "Abdominal escalador", series: "3x30-40s", tecnica: null, musculo: "Abdômen / Core" },
+  { nome: "Prancha lateral", series: "3x máx", tecnica: null, musculo: "Oblíquos / Core" },
+  { nome: "Elevação de pernas (barra ou banco)", series: "3x10-15", tecnica: null, musculo: "Abdômen inferior" },
+];
+
+// Regras: 1 série de reconhecimento antes do 1º exercício de cada grupo, séries válidas até a falha
+// (ou a 1 rep dela), descanso de 60-90s e descida controlada (2-3s).
 const TREINOS = [
   {
-    nome: "A - Peito e ABS",
+    nome: "A - Push",
     ordem: 0,
     exercicios: [
-      { nome: "Mobilidade superior", series: "5-10min", tecnica: null, musculo: "Mobilidade / Aquecimento" },
-      { nome: "Manguito", series: "4x", tecnica: "Padrão", musculo: "Manguito rotador" },
-      { nome: "Supino reto", series: "5x", tecnica: "Pirâmide", musculo: "Peitoral maior" },
-      { nome: "Crucifixo inclinado", series: "4x", tecnica: "Dropset", musculo: "Peitoral superior" },
-      { nome: "Supino inclinado máquina", series: "4x", tecnica: "Padrão", musculo: "Peitoral superior" },
-      { nome: "Crossover X flexão solo", series: "4x", tecnica: "Bi-set", musculo: "Peitoral / Tríceps" },
-      { nome: "Alternado inferior peitoral", series: "4x", tecnica: "Padrão", musculo: "Peitoral inferior" },
-      { nome: "ABS polia alta", series: "4x", tecnica: "Tri-set", musculo: "Abdômen" },
-      { nome: "Abdominal supra com anilha", series: "4x", tecnica: "Tri-set", musculo: "Abdômen superior" },
-      { nome: "Remador", series: "4x", tecnica: "Tri-set", musculo: "Abdômen / Core" },
+      { nome: "Supino inclinado c/ halteres", series: "2x6-10", tecnica: "Rest-pause", musculo: "Peitoral superior", observacoes: "Rest-pause na última série." },
+      { nome: "Voador", series: "2x8-12", tecnica: "Pico de contração", musculo: "Peitoral" },
+      { nome: "Elevação lateral sentado", series: "3x10-15", tecnica: "Dropset", musculo: "Deltoide lateral", observacoes: "Drop set na última série." },
+      { nome: "Elevação frontal", series: "2x8-12", tecnica: null, musculo: "Deltoide anterior" },
+      { nome: "Tríceps pulley", series: "2x8-12", tecnica: "Dropset", musculo: "Tríceps", observacoes: "Drop set na última série." },
     ],
   },
   {
-    nome: "B - Pernas",
+    nome: "B - Pull + ABS",
     ordem: 1,
     exercicios: [
-      { nome: "Mobilidade inferior", series: "5-10min", tecnica: null, musculo: "Mobilidade / Aquecimento" },
-      { nome: "Agachamento", series: "4x", tecnica: "Pirâmide", musculo: "Quadríceps / Glúteos" },
-      { nome: "Cadeira extensora", series: "4x", tecnica: "Dropset", musculo: "Quadríceps" },
-      { nome: "Levantamento terra", series: "4x", tecnica: "Pirâmide", musculo: "Posterior / Glúteos / Lombar" },
-      { nome: "Flexora deitada", series: "4x", tecnica: "6x12", musculo: "Posterior de coxa" },
-      { nome: "Leg 45", series: "4x", tecnica: "Padrão", musculo: "Quadríceps / Glúteos" },
-      { nome: "Panturrilha em pé", series: "4x", tecnica: "Padrão", musculo: "Panturrilha" },
+      { nome: "Remada curvada", series: "2x6-10", tecnica: null, musculo: "Dorsal / Romboides" },
+      { nome: "Puxada alta aberta", series: "2x6-10", tecnica: "Rest-pause", musculo: "Dorsal", observacoes: "Rest-pause na última série." },
+      { nome: "Pulldown (braço estendido)", series: "2x10-12", tecnica: "Pico de contração", musculo: "Dorsal" },
+      { nome: "Rosca Scott", series: "2x6-10", tecnica: "Dropset", musculo: "Bíceps", observacoes: "Drop set na última série." },
+      { nome: "Rosca concentrada", series: "2x8-12", tecnica: null, musculo: "Bíceps" },
+      ...ABDOMINAIS,
     ],
   },
   {
-    nome: "C - Costas",
+    nome: "C - Legs + ABS",
     ordem: 2,
     exercicios: [
-      { nome: "Mobilidade superior", series: "5-10min", tecnica: null, musculo: "Mobilidade / Aquecimento" },
-      { nome: "Barra fixa", series: "4x", tecnica: "Cluster", musculo: "Dorsal / Bíceps" },
-      { nome: "Serrote", series: "4x", tecnica: "Unilateral", musculo: "Dorsal" },
-      { nome: "Remada pronada com barra", series: "4x", tecnica: "Pirâmide", musculo: "Dorsal / Romboides" },
-      { nome: "Puxada alta", series: "4x", tecnica: "Padrão", musculo: "Dorsal" },
-      { nome: "Pulldown", series: "3x", tecnica: "Padrão", musculo: "Dorsal" },
-      { nome: "Puxada alta triângulo", series: "3x", tecnica: "Pirâmide", musculo: "Dorsal / Bíceps" },
+      { nome: "Hack", series: "2x6-10", tecnica: "Rest-pause", musculo: "Quadríceps / Glúteos", observacoes: "Rest-pause na última série." },
+      { nome: "Mesa flexora", series: "3x6-10", tecnica: null, musculo: "Posterior de coxa" },
+      { nome: "Extensora", series: "3x8-12", tecnica: "Dropset", musculo: "Quadríceps", observacoes: "Drop set na última série." },
+      { nome: "Adutora", series: "2x8-12", tecnica: null, musculo: "Adutores" },
+      { nome: "Panturrilha", series: "3x8-12", tecnica: "Pausa embaixo", musculo: "Panturrilha" },
+      ...ABDOMINAIS,
     ],
   },
   {
-    nome: "D - Ombro e ABS",
+    nome: "D - Upper + ABS",
     ordem: 3,
     exercicios: [
-      { nome: "Mobilidade superior", series: "5-10min", tecnica: null, musculo: "Mobilidade / Aquecimento" },
-      { nome: "Desenvolvimento halter", series: "5x", tecnica: "Pirâmide", musculo: "Deltoide" },
-      { nome: "Elevação lateral", series: "4x", tecnica: "Dropset", musculo: "Deltoide lateral" },
-      { nome: "Remada alta barra W + Elevação frontal", series: "4x", tecnica: "Bi-set", musculo: "Deltoide / Trapézio" },
-      { nome: "Posterior ombro halter + Elevação lateral", series: "4x", tecnica: "Bi-set", musculo: "Deltoide posterior / Lateral" },
-      { nome: "Posterior ombro polia unilateral", series: "4x", tecnica: "Unilateral", musculo: "Deltoide posterior" },
-      { nome: "Elevação de pernas", series: "4x", tecnica: "Tri-set", musculo: "Abdômen inferior" },
-      { nome: "Rolinho", series: "4x", tecnica: "Tri-set", musculo: "Abdômen / Core" },
-      { nome: "Prancha", series: "4x", tecnica: "Tri-set", musculo: "Core / Estabilizadores" },
+      { nome: "Supino reto", series: "2x6-10", tecnica: null, musculo: "Peitoral maior" },
+      { nome: "Remada cavalinho", series: "2x6-10", tecnica: null, musculo: "Dorsal / Romboides" },
+      { nome: "Crossover baixa", series: "2x8-12", tecnica: "Bi-set", musculo: "Peitoral superior", observacoes: "Bi-set com a remada unilateral na polia." },
+      { nome: "Remada unilateral na polia", series: "2x8-12", tecnica: "Bi-set", musculo: "Dorsal", observacoes: "Bi-set com o crossover baixa." },
+      { nome: "Elevação lateral (polia ou halter)", series: "2x10-15", tecnica: "Dropset", musculo: "Deltoide lateral" },
+      { nome: "Tríceps testa + Rosca direta", series: "2x8-12", tecnica: "Bi-set", musculo: "Tríceps / Bíceps" },
+      ...ABDOMINAIS,
     ],
   },
   {
-    nome: "E - Braço",
+    nome: "E - Legs 2",
     ordem: 4,
     exercicios: [
-      { nome: "Mobilidade superior", series: "5-10min", tecnica: null, musculo: "Mobilidade / Aquecimento" },
-      { nome: "Bíceps corda x Tríceps corda", series: "4x", tecnica: "Pirâmide", musculo: "Bíceps / Tríceps" },
-      { nome: "Barra reta bíceps x Flexão diamante", series: "4x", tecnica: "Padrão", musculo: "Bíceps / Tríceps" },
-      { nome: "Bíceps rosca halter x Francês", series: "4x", tecnica: "Pirâmide", musculo: "Bíceps / Tríceps" },
-      { nome: "Bíceps polia reta x Tríceps coice", series: "4x", tecnica: "6x12", musculo: "Bíceps / Tríceps" },
+      { nome: "Leg press 45°", series: "2x8-12", tecnica: "Rest-pause", musculo: "Quadríceps / Glúteos", observacoes: "Rest-pause na última série." },
+      { nome: "Stiff", series: "2x8-10", tecnica: "Descida lenta", musculo: "Posterior / Glúteos" },
+      { nome: "Agachamento búlgaro", series: "2x8-10 (cada)", tecnica: "Unilateral", musculo: "Quadríceps / Glúteos" },
+      { nome: "Cadeira flexora", series: "2x10-12", tecnica: "Dropset", musculo: "Posterior de coxa" },
+      { nome: "Abdutora", series: "2x10-15", tecnica: null, musculo: "Glúteo médio" },
+      { nome: "Panturrilha sentado", series: "3x10-15", tecnica: "Pausa embaixo", musculo: "Panturrilha (sóleo)" },
     ],
   },
 ];
@@ -146,6 +175,13 @@ async function main() {
       create: t,
     });
     tecnicaMap[t.nome] = row.id;
+  }
+
+  // Preserva mídia/textos cadastrados pelo painel para exercícios que continuam no plano.
+  const normalizar = (nome) => nome.trim().toLowerCase();
+  const extrasPorNome = {};
+  for (const ex of await prisma.exercicio.findMany()) {
+    extrasPorNome[normalizar(ex.nome)] ??= ex;
   }
 
   await prisma.exercicio.deleteMany();
@@ -174,14 +210,21 @@ async function main() {
     }
 
     await prisma.exercicio.createMany({
-      data: config.exercicios.map((ex, index) => ({
-        treinoId: treino.id,
-        nome: ex.nome,
-        series: ex.series,
-        tecnicaId: ex.tecnica ? tecnicaMap[ex.tecnica] : null,
-        musculo: ex.musculo,
-        ordem: index,
-      })),
+      data: config.exercicios.map((ex, index) => {
+        const extras = extrasPorNome[normalizar(ex.nome)];
+        return {
+          treinoId: treino.id,
+          nome: ex.nome,
+          series: ex.series,
+          tecnicaId: ex.tecnica ? tecnicaMap[ex.tecnica] : null,
+          musculo: ex.musculo,
+          video: extras?.video || null,
+          passoAPasso: extras?.passoAPasso || null,
+          dicas: extras?.dicas || null,
+          observacoes: ex.observacoes ?? (extras?.observacoes || null),
+          ordem: index,
+        };
+      }),
     });
   }
 
